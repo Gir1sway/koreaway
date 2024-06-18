@@ -1,0 +1,28 @@
+{% extends 'registration/layout.html' %}
+{% load bootstrap5 %}
+{% block title %}Вход{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid" style="background-color: #FFE0F7; height: 100vh;">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-md-4" style="background-color: white; border-radius: 25px; padding: 20px; box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);">
+                <div class="text-center mb-4">
+                    <img src="{% static 'img/logo.png' %}" alt="Корейская косметика" style="height: 80px;">
+                    <h2 class="mt-2">Добро пожаловать в Корейский косметический магазин</h2>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary" style="background-color: #FF6F61; border-color: #FF6F61;">Войти</button>
+                    </div>
+                </form>
+
+                <hr class="my-4">
+
+                <p class="text-center">Еще не зарегистрированы? <a href="{% url 'signup' %}" style="color: #FF6F61;">Зарегистрироваться</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

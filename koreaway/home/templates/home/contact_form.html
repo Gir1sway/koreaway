@@ -1,0 +1,49 @@
+<div class="modal fade" id="contactFormModal" tabindex="-1" aria-labelledby="contactFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FF6F61; color: white;">
+                <h5 class="modal-title" id="contactFormModalLabel">Задайте интересующий вас вопрос</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: white;"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ contact_form.name.label_tag }}
+                        {{ contact_form.name }}
+                        {% if contact_form.name.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in contact_form.name.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ contact_form.email.label_tag }}
+                        {{ contact_form.email }}
+                        {% if contact_form.email.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in contact_form.email.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ contact_form.message.label_tag }}
+                        {{ contact_form.message }}
+                        {% if contact_form.message.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in contact_form.message.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-success">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

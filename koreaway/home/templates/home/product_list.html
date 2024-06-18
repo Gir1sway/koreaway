@@ -1,0 +1,45 @@
+{% extends 'home/layout.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4" style="color: #FF6F61;">Каталог товаров</h1>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group">
+                    {% for category in categories %}
+                        <a href="{% url 'product_list_by_category' category.slug %}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for product in products %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <a href="{% url 'product_detail' product.slug %}">
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="width: 100%; max-height: 350px; object-fit: cover;">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #FF6F61;">{{ product.name }}</h5>
+                                    <p class="card-text">{{ product.price }} ₽</p>
+                                    <a href="{% url 'product_detail' product.slug %}" class="btn btn-success" style="background-color: #FF6F61; border: none;">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center mt-4">
+            <p class="col-md-9 text-center" style="font-size: 1.2rem; color: #666;">Есть вопросы о выборе товара? Свяжитесь с нами!</p>
+            <button type="button" class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#contactFormModal" style="background-color: #FF6F61; border: none;">
+                Связаться
+            </button>
+        </div>
+
+        {% include 'home/contact_form.html' %}
+    </div>
+{% endblock %}

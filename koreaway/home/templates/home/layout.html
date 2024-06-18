@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Магазин корейской косметики{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        .navbar {
+            background-color: #F7E6E6;
+            padding: 10px;
+        }
+        .navbar-brand {
+            font-size: 1.5em;
+            margin-right: 20px;
+            color: #FF6F61;
+        }
+        .navbar-nav .nav-item .nav-link {
+            background-color: #FFE4E1;
+            color: #FF6F61;
+            border-radius: 5px;
+            margin: 0 5px;
+            padding: 10px 15px;
+        }
+        .navbar-nav .nav-item .nav-link:hover {
+            background-color: #FF6F61;
+            color: white;
+        }
+        .navbar-nav .nav-item .nav-link.active {
+            background-color: #FF6F61;
+            color: white;
+        }
+        .navbar .form-inline .btn {
+            background-color: #FFE4E1;
+            border: none;
+            color: #FF6F61;
+            margin: 0 5px;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+        .navbar .form-inline .btn:hover {
+            background-color: #FF6F61;
+            color: white;
+        }
+        .user-icon {
+            background-color: #FF6F61;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-left: 20px;
+        }
+        body {
+            background-color: #FFF5F5;
+            font-family: 'Arial', sans-serif;
+        }
+        footer {
+            background-color: #FFE4E1;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'img/logo.png' %}" alt="" style="height: 50px; width: 200px">
+            Магазин корейской косметики
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_list' %}">Каталог</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart' %}">Корзина</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">О нас</a>
+                </li>
+            </ul>
+            <form class="d-flex" method="get" action="{% url 'search' %}">
+                <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="q">
+                <button class="btn" type="submit">Поиск</button>
+            </form>
+            {% if user.is_authenticated %}
+                <div class="user-icon">
+                    <span>{{ user.username|first }}</span>
+                </div>
+                <a class="nav-link" href="{% url 'user-detail' user.id %}">{{ user.username }}</a>
+            {% else %}
+                <div class="user-icon">
+                    <span>В</span>
+                </div>
+                <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                <a class="nav-link" href="{% url 'signup' %}">Зарегистрироваться</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container text-center">
+        <span class="text-muted">Все права защищены &copy; 2024 Магазин корейской косметики</span>
+    </div>
+</footer>
+</body>
+</html>

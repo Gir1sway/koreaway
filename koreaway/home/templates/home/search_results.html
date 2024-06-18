@@ -1,0 +1,26 @@
+{% extends 'home/layout.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4" style="color: #FF6F61;">Результаты поиска</h1>
+        {% if product_results %}
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for product in product_results %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="{% url 'product_detail' product.slug %}">
+                                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="width: 100%; max-height: 350px; object-fit: cover;">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: #FF6F61;">{{ product.name }}</h5>
+                                <p class="card-text">{{ product.price }} ₽</p>
+                                <a href="{% url 'product_detail' product.slug %}" class="btn btn-success" style="background-color: #FF6F61; border: none;">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="mt-4" style="color: #666;">Нет продуктов, соответствующих поисковому запросу.</p>
+        {% endif %}
+    </div>
+{% endblock %}

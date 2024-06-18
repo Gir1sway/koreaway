@@ -1,0 +1,23 @@
+{% extends 'home/layout.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="display-4 mb-4" style="color: #FF6F61;">Профиль пользователя</h1>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #FF6F61;">Логин:</h5>
+                <p class="card-text">{{ profile_user.username }}</p>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #FF6F61;">Почта:</h5>
+                <p class="card-text">{{ profile_user.email }}</p>
+            </div>
+        </div>
+
+        <a href="{% url 'logout' %}" class="btn btn-danger" style="background-color: #FF6F61; border: none;">Выйти</a>
+    </div>
+{% endblock %}

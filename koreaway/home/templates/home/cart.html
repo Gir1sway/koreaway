@@ -1,0 +1,28 @@
+{% extends 'home/layout.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4" style="color: #FF6F61;">Ваша корзина</h1>
+        {% if cart.cartitem_set.all %}
+            <ul class="list-group mb-4">
+                {% for item in cart.cartitem_set.all %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px; border-radius: 10px;">
+                        <div>
+                            <h5 style="color: #FF6F61;">{{ item.product.name }}</h5>
+                            <p>Количество: {{ item.quantity }}</p>
+                            <p>Цена: {{ item.product.price }} ₽</p>
+                        </div>
+                        <form action="{% url 'remove_from_cart' item.product.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger" style="border-color: #FF6F61; color: #FF6F61;">Удалить</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h3 style="color: #FF6F61;">Итоговая цена: {{ total_price }} ₽</h3>
+            <a href="{% url 'checkout' %}" class="btn btn-success" style="background-color: #FF6F61; border: none;">Продолжить оформление</a>
+        {% else %}
+            <p>Ваша корзина пустая.</p>
+        {% endif %}
+    </div>
+{% endblock %}
